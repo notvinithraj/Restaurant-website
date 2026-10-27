@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Nawab's Darbar — Hyderabadi Fine Dining (Fictional Demo)</title>
+  <!-- Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons (lightweight, only 6 icons used) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- RESET & GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0b0b0b;
+      color: #eaeaea;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Dark theme container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Subtle animations */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(16px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.7s ease-out forwards;
+    }
+
+    /* Delay utilities */
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    /* ---------- TYPOGRAPHY & LINKS ---------- */
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 7vw, 3.8rem);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      margin-bottom: 0.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 60px;
+      height: 3px;
+      background: #d4af37; /* muted gold */
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      color: #a0a0a0;
+      font-size: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ---------- HEADER / NAV ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 0.9rem 0;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    .logo span {
+      color: #d4af37;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: #d0d0d0;
+      transition: color 0.2s;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+      border-bottom-color: #d4af37;
+    }
+
+    /* Mobile nav toggle (hidden on desktop) */
+    .menu-toggle {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #f0f0f0;
+      background: none;
+      border: none;
+      padding: 0.2rem 0.5rem;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.08), transparent 50%),
+                  linear-gradient(145deg, #0b0b0b 0%, #141414 100%);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .hero-content {
+      max-width: 750px;
+      padding: 4rem 0;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.12);
+      color: #d4af37;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .hero h1 {
+      margin-bottom: 1.2rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .hours-card {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 60px;
+      padding: 0.8rem 1.8rem;
+      width: fit-content;
+      margin-bottom: 2.5rem;
+      backdrop-filter: blur(4px);
+      font-size: 0.95rem;
+    }
+
+    .hours-card i {
+      color: #d4af37;
+      font-size: 1.2rem;
+    }
+
+    .hours-card .hours-text {
+      color: #ccc;
+    }
+
+    .hours-card strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background: #d4af37;
+      color: #0b0b0b;
+      box-shadow: 0 8px 20px -6px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #e6c34a;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(212, 175, 55, 0.45);
+    }
+
+    .btn-outline {
+      border: 1.5px solid rgba(212, 175, 55, 0.6);
+      color: #d4af37;
+    }
+
+    .btn-outline:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- SECTION SPACING ---------- */
+    section {
+      padding: 5rem 0;
+    }
+
+    /* ---------- MENU ---------- */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .menu-card {
+      background: #141414;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #262626;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Food photo placeholders — stylish gradient blocks with icon */
+    .food-photo {
+      height: 180px;
+      background: linear-gradient(135deg, #1f1f1f 0%, #2a2a2a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid #2c2c2c;
+    }
+
+    .food-photo i {
+      font-size: 3.2rem;
+      color: #d4af37;
+      opacity: 0.7;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    }
+
+    .food-photo::after {
+      content: 'photo placeholder';
+      position: absolute;
+      bottom: 10px;
+      right: 16px;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .menu-card-content {
+      padding: 1.6rem 1.6rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .menu-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .menu-card-header h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #d4af37;
+      white-space: nowrap;
+    }
+
+    .menu-desc {
+      color: #a8a8a8;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .menu-tag {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.1);
+      color: #d4af37;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      align-self: flex-start;
+      text-transform: uppercase;
+    }
+
+    /* ---------- LOCATION & HOURS (2‑col) ---------- */
+    .location-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .location-card, .hours-card-full {
+      background: #141414;
+      border-radius: 28px;
+      padding: 2.2rem;
+      border: 1px solid #262626;
+      height: 100%;
+    }
+
+    .location-card h3, .hours-card-full h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1.4rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .location-card h3 i, .hours-card-full h3 i {
+      color: #d4af37;
+      font-size: 1.3rem;
+    }
+
+    .address-line {
+      color: #b0b0b0;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .address-line i {
+      color: #d4af37;
+      width: 20px;
+      margin-top: 3px;
+    }
+
+    .map-placeholder {
+      background: #1e1e1e;
+      border-radius: 16px;
+      height: 140px;
+      margin-top: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5a5a5a;
+      font-size: 0.85rem;
+      border: 1px dashed #3a3a3a;
+      letter-spacing: 0.5px;
+    }
+
+    .map-placeholder i {
+      margin-right: 0.5rem;
+      color: #d4af37;
+      opacity: 0.6;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #262626;
+      color: #c0c0c0;
+    }
+
+    .hours-row:last-child {
+      border-bottom: none;
+    }
+
+    .hours-row .day {
+      font-weight: 500;
+      color: #eaeaea;
+    }
+
+    .hours-row .time {
+      color: #d4af37;
+      font-weight: 500;
+    }
+
+    /* WhatsApp enquiry section */
+    .whatsapp-section {
+      text-align: center;
+      padding: 3rem 0 5rem;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: #25D366;
+      color: #0b0b0b;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 1rem 2.8rem;
+      border-radius: 60px;
+      box-shadow: 0 10px 25px -8px rgba(37, 211, 102, 0.4);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+
+    .whatsapp-btn i {
+      font-size: 1.4rem;
+    }
+
+    .whatsapp-btn:hover {
+      background: #20b859;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px -8px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-note {
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      color: #6a6a6a;
+      letter-spacing: 0.3px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .site-footer {
+      border-top: 1px solid #1f1f1f;
+      padding: 2rem 0;
+      text-align: center;
+      color: #5a5a5a;
+      font-size: 0.85rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 850px) {
+      .location-wrap {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+      }
+
+      .hero {
+        min-height: 70vh;
+      }
+
+      .hero-content {
+        padding: 3rem 0;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links {
+        display: none; /* simple mobile hide, no JS hamburger needed for this demo */
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .header-inner {
+        position: relative;
+      }
+
+      /* show mobile nav when active (simple toggle via JS later) */
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0f0f0f;
+        padding: 1.5rem 1.5rem;
+        border-bottom: 1px solid #262626;
+        gap: 1.2rem;
+        backdrop-filter: blur(12px);
+        border-top: 1px solid #1f1f1f;
+        z-index: 99;
+      }
+
+      .nav-links.active a {
+        padding: 0.4rem 0;
+        font-size: 1.1rem;
+      }
+
+      section {
+        padding: 3.5rem 0;
+      }
+
+      .hours-card {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 0.75rem 1.6rem;
+        font-size: 0.9rem;
+      }
+
+      .whatsapp-btn {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .menu-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .menu-card-header h3 {
+        font-size: 1.2rem;
+      }
+
+      .price {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">Nawab's <span>Darbar</span></div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#location">Location</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== HERO ========== -->
+    <section id="home" class="hero">
+      <div class="container hero-content fade-up">
+        <div class="badge">Hyderabadi · Fine Dining</div>
+        <h1>Where tradition meets<br>modern elegance.</h1>
+        <p>A fictional culinary experience in the heart of Hyderabad. Slow-cooked biryanis, char-grilled kebabs, and handcrafted desserts — all in a warm, dark‑themed ambience.</p>
+
+        <div class="hours-card">
+          <i class="fas fa-clock"></i>
+          <span class="hours-text"><strong>Open today:</strong> 12:00 PM – 11:30 PM</span>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#menu" class="btn btn-primary"><i class="fas fa-utensils"></i> Explore Menu</a>
+          <a href="#location" class="btn btn-outline"><i class="fas fa-map-pin"></i> Find Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MENU ========== -->
+    <section id="menu" class="container">
+      <h2 class="fade-up">Signature Menu</h2>
+      <p class="section-subtitle fade-up delay-1">A curated selection of Hyderabadi favourites — 100% fictional.</p>
+
+      <div class="menu-grid">
+        <!-- Item 1 -->
+        <div class="menu-card fade-up delay-1">
+          <div class="food-photo">
+            <i class="fas fa-drumstick-bite"></i>
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3>Nawabi Dum Biryani</h3>
+              <span class="price">₹480</span>
+            </div>
+            <p class="menu-desc">Fragrant basmati rice slow-cooked with tender lamb, saffron, and a secret blend of whole spices. Served with mirchi ka salan.</p>
+            <span class="menu-tag">Chef's Special</span>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="menu-card fade-up delay-2">
+          <div class="food-photo">
+            <i class="fas fa-fire"></i>
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3>Char-Grilled Seekh Kebab</h3>
+              <span class="price">₹320</span>
+            </div>
+            <p class="menu-desc">Minced lamb infused with fresh coriander, mint, and green chilli, grilled over charcoal. Served with garlic naan.</p>
+            <span class="menu-tag">Smoky</span>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="menu-card fade-up delay-3">
+          <div class="food-photo">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3>Paneer Butter Masala</h3>
+              <span class="price">₹360</span>
+            </div>
+            <p class="menu-desc">Creamy tomato gravy with soft cottage cheese cubes, finished with a touch of cream and kasuri methi. Vegetarian.</p>
+            <span class="menu-tag">Veg</span>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="menu-card fade-up delay-1">
+          <div class="food-photo">
+            <i class="fas fa-fish"></i>
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3>Apollo Fish (Fry)</h3>
+              <span class="price">₹390</span>
+            </div>
+            <p class="menu-desc">Crispy boneless fish tossed with curry leaves, green chillies, and a tangy yogurt‑chilli marinade. A Hyderabadi classic.</p>
+            <span class="menu-tag">Spicy</span>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="menu-card fade-up delay-2">
+          <div class="food-photo">
+            <i class="fas fa-ice-cream"></i>
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3>Double Ka Meetha</h3>
+              <span class="price">₹220</span>
+            </div>
+            <p class="menu-desc">Traditional bread pudding soaked in saffron milk, garnished with almonds and pistachios. Served warm.</p>
+            <span class="menu-tag">Dessert</span>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="menu-card fade-up delay-3">
+          <div class="food-photo">
+            <i class="fas fa-mug-hot"></i>
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3>Irani Chai & Osmania Biscuit</h3>
+              <span class="price">₹120</span>
+            </div>
+            <p class="menu-desc">Slow‑brewed milky chai served with the iconic sweet‑salty Osmania biscuit. A true Hyderabadi ritual.</p>
+            <span class="menu-tag">Beverage</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== LOCATION & HOURS ========== -->
+    <section id="location" class="container">
+      <h2 class="fade-up">Visit & Hours</h2>
+      <p class="section-subtitle fade-up delay-1">Find us in the heart of the city — fictional address for demo.</p>
+
+      <div class="location-wrap">
+        <!-- Location card -->
+        <div class="location-card fade-up delay-1">
+          <h3><i class="fas fa-map-marker-alt"></i> Our Address</h3>
+          <div class="address-line">
+            <i class="fas fa-building"></i>
+            <span>12‑A, Pearl Lane, Banjara Hills<br>Hyderabad, Telangana 500034<br>(Fictional location)</span>
+          </div>
+          <div class="address-line">
+            <i class="fas fa-phone-alt"></i>
+            <span>+91 40 1234 5678 (demo)</span>
+          </div>
+          <div class="map-placeholder">
+            <i class="fas fa-map"></i> Map preview (placeholder)
+          </div>
+        </div>
+
+        <!-- Opening hours card -->
+        <div class="hours-card-full fade-up delay-2">
+          <h3><i class="fas fa-clock"></i> Opening Hours</h3>
+          <div class="hours-row">
+            <span class="day">Monday – Thursday</span>
+            <span class="time">12:00 PM – 11:00 PM<
+            </div>
+          <div class="hours-row">
+            <span class="day">Friday – Saturday</span>
+            <span class="time">12:00 PM – 11:30 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Sunday</span>
+            <span class="time">12:00 PM – 10:30 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="day">Public Holidays</span>
+            <span class="time">1:00 PM – 11:00 PM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WHATSAPP ENQUIRY ========== -->
+    <section id="contact" class="container whatsapp-section">
+      <h2 class="fade-up">Enquire on WhatsApp</h2>
+      <p class="section-subtitle fade-up delay-1">Have a question or want to book a table? Ping us.</p>
+      <a href="https://wa.me/919999999999?text=Hello%20Nawab%27s%20Darbar%2C%20I%27d%20like%20to%20enquire%20about%20a%20table." 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="whatsapp-btn fade-up delay-2">
+        <i class="fab fa-whatsapp"></i> Message Us on WhatsApp
+      </a>
+      <p class="whatsapp-note fade-up delay-3">*This is a demo. The number is fictional.</p>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Nawab's Darbar — Fictional Demo. All details are invented for demonstration purposes.</p>
+    </div>
+  </footer>
+
+  <!-- ========== SIMPLE MOBILE NAV TOGGLE ========== -->
+  <script>
+    (function() {
+      const toggleBtn = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (toggleBtn && navLinks) {
+        toggleBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          navLinks.classList.toggle('active');
+          // Change icon (optional)
+          const icon = toggleBtn.querySelector('i');
+          if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        });
+
+        // Close mobile menu when a nav link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+              navLinks.classList.remove('active');
+              const icon = toggleBtn.querySelector('i');
+              icon.classList.remove('fa-times');
+              icon.classList.add('fa-bars');
+            }
+          });
+        });
+
+        // Close menu when clicking outside (optional)
+        document.addEventListener('click', function(event) {
+          if (navLinks.classList.contains('active') && !navLinks.contains(event.target) && event.target !== toggleBtn) {
+            navLinks.classList.remove('active');
+            const icon = toggleBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        });
+      }
+    })();
+  </script>
+  <!-- Subtle scroll animation trigger (using Intersection Observer for fade-up elements already visible; but they are animated on load. To keep it beginner-friendly, we rely on CSS animation on page load. No extra scroll JS needed.) -->
+</body>
+</html>
